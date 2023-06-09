@@ -6,6 +6,8 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
+ENV DEVICE="dev1"
+
 EXPOSE 5000
 
 COPY ./app /app
