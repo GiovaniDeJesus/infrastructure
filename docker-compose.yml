@@ -8,6 +8,16 @@ services:
     volumes:
       - type: volume 
         source: dev1-vol
-        target: /app 
+        target: /app
+  nodered: 
+    container_name: nodered
+    image: nodered/node-red
+    ports:
+      - "1880:1880"
+    volumes: 
+      - type: volume
+        source: nodered-vol
+        target: /data
 volumes:
-  dev1-vol: []
+  dev1-vol: {}
+  nodered-vol: {}
