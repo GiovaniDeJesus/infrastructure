@@ -7,6 +7,20 @@
         "info": ""
     },
     {
+        "id": "fd9a15108afa097d",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "fluxdb",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://influxdb:8086",
+        "rejectUnauthorized": true
+    },
+    {
         "id": "2539d45cb48edaf6",
         "type": "inject",
         "z": "f6f2187d.f17ca8",
@@ -20,14 +34,14 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "30",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 220,
+        "x": 230,
         "y": 260,
         "wires": [
             [
@@ -55,7 +69,8 @@
         "y": 260,
         "wires": [
             [
-                "6e710c7aabd09740"
+                "6e710c7aabd09740",
+                "ce5c2bd6c9b3bbcc"
             ]
         ]
     },
@@ -72,8 +87,46 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
+        "x": 960,
         "y": 260,
         "wires": []
+    },
+    {
+        "id": "b6f02134e5487369",
+        "type": "influxdb out",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "fd9a15108afa097d",
+        "name": "influxdb",
+        "measurement": "data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "contoso",
+        "bucket": "testbucket",
+        "x": 800,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ce5c2bd6c9b3bbcc",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "msg.payload = [\n    [{\n        temp: msg.payload.data.temp,\n    },\n    {\n        device: msg.payload.data.device,\n        name: msg.payload.data.name\n    }],\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 380,
+        "wires": [
+            [
+                "b6f02134e5487369",
+                "6e710c7aabd09740"
+            ]
+        ]
     }
 ]

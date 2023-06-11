@@ -1,0 +1,5 @@
+{
+    "fd9a15108afa097d": {
+        "token": "${NODE_RED_INFLUXDB_TOKEN}"
+    }
+}

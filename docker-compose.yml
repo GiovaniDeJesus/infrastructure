@@ -18,6 +18,25 @@ services:
       - type: volume
         source: nodered-vol
         target: /data
+    environment:
+      - NODE_RED_INFLUXDB_TOKEN=tokentestok
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - type: volume
+        source: influxdb-vol
+        target: /var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=test
+      - DOCKER_INFLUXDB_INIT_PASSWORD=predockersecret
+      - DOCKER_INFLUXDB_INIT_ORG=contoso
+      - DOCKER_INFLUXDB_INIT_BUCKET=testbucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=tokentestok
 volumes:
   dev1-vol: {}
   nodered-vol: {}
+  influxdb-vol: {}
